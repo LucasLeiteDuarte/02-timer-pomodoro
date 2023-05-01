@@ -5,10 +5,10 @@ import * as zod from 'zod'
 import { useState } from 'react'
 
 import {
-  CountdownCOntainer,
+  CountdownContainer,
   FormContainer,
   HomeContainer,
-  MinutesAmonutInput,
+  MinutesAmountInput,
   Separator,
   StartCountdownButton,
   TaskInput,
@@ -16,7 +16,7 @@ import {
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a tarefa'),
-  MinutesAmonutInput: zod.number().min(5).max(60),
+  minutesAmount: zod.number().min(5).max(60),
 })
 
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
@@ -36,7 +36,7 @@ export function Home() {
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
       task: '',
-      MinutesAmonutInput: 0,
+      minutesAmount: 5,
     },
   })
 
@@ -87,7 +87,7 @@ export function Home() {
           </datalist>
 
           <label htmlFor="minutesAmount">durante</label>
-          <MinutesAmonutInput
+          <MinutesAmountInput
             type="number"
             id="minutesAmount"
             placeholder="00"
@@ -99,13 +99,13 @@ export function Home() {
           <span>minutos.</span>
         </FormContainer>
 
-        <CountdownCOntainer>
+        <CountdownContainer>
           <span>{minutes[0]}</span>
           <span>{minutes[1]}</span>
           <Separator>:</Separator>
           <span>{seconds[0]}</span>
           <span>{seconds[1]}</span>
-        </CountdownCOntainer>
+        </CountdownContainer>
 
         <StartCountdownButton disabled={isSubmitDisabled} type="submit">
           <Play size={24} />
