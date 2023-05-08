@@ -28,6 +28,7 @@ interface Cycle {
   task: string
   minutesAmount: number
   startDate: Date
+  interruptedDate?: Date
 }
 
 export function Home() {
@@ -91,6 +92,19 @@ export function Home() {
     }
   }, [minutes, seconds, activeCycle])
 
+  function handleInterruptCycle() {
+    setCycles(
+      cycles.map((cycle) => {
+        if (cycle.id === activeCycleId) {
+          return { ...cycle, interruptedDate: new Date() }
+        } else {
+          return cycle
+        }
+      }),
+    )
+    setActiveCycleId(null)
+  }
+
   const task = watch('task')
   const isSubmitDisabled = !task
 
@@ -106,6 +120,7 @@ export function Home() {
             id="task"
             list="task-suggestions"
             placeholder="Dê um nome para o seu Projeto"
+            disabled={!!activeCycle} // !! se tiver algum valor dentro, converte para true se nao false.
             {...register('task')}
           />
 
@@ -123,10 +138,8 @@ export function Home() {
             step={5}
             min={5}
             max={60}
-            {...register('minutesAmount', {
-              valueAsNumber: true,
-              setValueAs: (value: string) => parseFloat(value),
-            })}
+            disabled={!!activeCycle}
+            {...register('minutesAmount', { valueAsNumber: true })}
           />
 
           <span>minutos.</span>
@@ -141,7 +154,7 @@ export function Home() {
         </CountdownContainer>
 
         {activeCycle ? (
-          <StopCountdownButton type="button">
+          <StopCountdownButton onClick={handleInterruptCycle} type="button">
             <HandPalm size={24} />
             Interromper
           </StopCountdownButton>
