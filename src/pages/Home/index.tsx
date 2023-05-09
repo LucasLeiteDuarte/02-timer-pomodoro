@@ -25,7 +25,6 @@ interface Cycle {
 export function Home() {
   const [cycles, setCycles] = useState<Cycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
@@ -77,7 +76,7 @@ export function Home() {
 
   return (
     <HomeContainer>
-      <form onSubmit={handleSubmit((data) => handleCreateNewCycle(data))}>
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <NewCycleForm />
         <Countdown
           activeCycle={activeCycle}

@@ -14,7 +14,6 @@ export function Countdown({
   activeCycleId,
 }: CountdownProps) {
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
-
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
 
   useEffect(() => {
