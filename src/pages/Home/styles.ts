@@ -16,10 +16,6 @@ export const HomeContainer = styled.main`
   }
 `
 
-// export const MinutesAmountInput = styled(BaseCountdownButton)`
-//   width: 4rem;
-// `
-
 export const BaseCountdownButton = styled.button`
   width: 100%;
   border: 0;
